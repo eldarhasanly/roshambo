@@ -1,1 +1,2 @@
-# roshambo
+# Roshambo
+This repository contains the implementation of the Rock, Paper, Scissors game as part of an assignment from [The Odin Project](https://www.theodinproject.com/lessons/foundations-rock-paper-scissors). The task involves building a functional browser-based game using JavaScript, HTML, and CSS. The project focuses on practicing JavaScript fundamentals, DOM manipulation, and user interaction to create an engaging and fully operational game.
