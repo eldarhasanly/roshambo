@@ -1,8 +1,25 @@
 let computerChoiceNumber;
 let computerChoice;
 let computerScore = 0;
-let humanChoice ;
 let humanScore = 0;
+const music = document.getElementById("bg-music");
+const toggleBtn = document.getElementById("music-toggle");
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+
+let isPlaying = false;
+
+toggleBtn.addEventListener("click", () => {
+    if (isPlaying) {
+        music.pause();
+        toggleBtn.textContent = '♫';
+    } else {
+        music.play();
+        toggleBtn.textContent = '♬';
+    }
+    isPlaying = !isPlaying;
+});
 
 function getComputerChoice() {
     computerChoiceNumber = Math.ceil(Math.random()*3);
@@ -16,13 +33,19 @@ function getComputerChoice() {
     }
 
     return computerChoice;
-}
+};
 
-function getHumanChoice() {
-    humanChoice = prompt("Rock, Paper or Scissors:").toLowerCase();
+rock.addEventListener("click", () => {
+    playRound("rock", getComputerChoice());
+});
 
-    return humanChoice;
-}
+paper.addEventListener("click", () => {
+    playRound("paper", getComputerChoice());
+});
+
+scissors.addEventListener("click", () => {
+    playRound("scissors", getComputerChoice());
+});
 
 function playRound(humanChoice, computerChoice) {
 
@@ -47,15 +70,9 @@ function playRound(humanChoice, computerChoice) {
     } else {
         console.log("It's a tie. try again!");
     }
-}
+};
 
 function playGame() {
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-
     if (humanScore > computerScore) {
         console.log(`You won the game. ${humanScore}:${computerScore}`)
     } else if (computerScore > humanScore) {
@@ -63,6 +80,4 @@ function playGame() {
     } else {
         console.log(`The game ended in a draw. ${humanScore}:${computerScore}`)
     }
-}
-
-playGame();
+};
