@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Rock Paper Scissors</title>
     <script defer src="script.js"></script>
-    <link rel="icon" type="image/x-icon" href="/img/logo.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/img/logo.png" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header>
         <img src="https://fontmeme.com/permalink/250703/961525489da057663dd8b3e4bb181d20.png" alt="godfather-font">
     </header>
+
     <main>
         <div class="score">
-            <div class="scores" id="human-score">Your score:</div>
-            <div class="scores" id="computer-score">Computer score:</div>
+            <div class="scores">Your score: <span id="human-score">0</span></div>
+            <div class="scores">Computer score: <span id="computer-score">0</span></div>
         </div>
+
+        <div id="end-message" class="hidden"></div>
+        <button id="restart-button">Play Again</button>
 
         <div class="choice">
             <button class="choices" id="rock"><img src="img/rock.png" alt="rock"></button>
@@ -24,14 +28,13 @@
             <button class="choices" id="scissors"><img src="img/scissors.png" alt="scissors"></button>
         </div>
     </main>
+
     <audio id="bg-music" loop>
-        <source src="music/godfather-theme.mp3" type="audio/mpeg">
+        <source src="music/godfather-theme.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
     </audio>
 
-    <button id="music-toggle" aria-label="Toggle Music">
-        ♫
-    </button>
+    <button id="music-toggle" aria-label="Toggle Music">♫</button>
 
     <footer>Copyright © 2025. Eldar Hasanli</footer>
 </body>

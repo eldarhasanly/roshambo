@@ -1,12 +1,15 @@
-let computerChoiceNumber;
-let computerChoice;
 let computerScore = 0;
 let humanScore = 0;
+
 const music = document.getElementById("bg-music");
 const toggleBtn = document.getElementById("music-toggle");
-const rock = document.getElementById("rock");
-const paper = document.getElementById("paper");
-const scissors = document.getElementById("scissors");
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorsBtn = document.getElementById("scissors");
+const computerScoreSpan = document.getElementById("computer-score");
+const humanScoreSpan = document.getElementById("human-score");
+const endMessage = document.getElementById("end-message");
+const restartButton = document.getElementById("restart-button");
 
 let isPlaying = false;
 
@@ -22,62 +25,69 @@ toggleBtn.addEventListener("click", () => {
 });
 
 function getComputerChoice() {
-    computerChoiceNumber = Math.ceil(Math.random()*3);
-
-    if (computerChoiceNumber === 1) {
-        computerChoice = "rock";
-    } else if (computerChoiceNumber === 2) {
-        computerChoice = "paper";
-    } else {
-        computerChoice = "scissors";
-    }
-
-    return computerChoice;
-};
-
-rock.addEventListener("click", () => {
-    playRound("rock", getComputerChoice());
-});
-
-paper.addEventListener("click", () => {
-    playRound("paper", getComputerChoice());
-});
-
-scissors.addEventListener("click", () => {
-    playRound("scissors", getComputerChoice());
-});
+    const number = Math.ceil(Math.random() * 3);
+    if (number === 1) return "rock";
+    if (number === 2) return "paper";
+    return "scissors";
+}
 
 function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) return;
 
-    if (humanChoice === "rock" && computerChoice === "paper") {
-        console.log("You lose. Paper beats Rock.");
-        computerScore += 1;
-    } else if (humanChoice === "rock" && computerChoice === "scissors") {
-        console.log("You win. Rock beats Scissors.");
-        humanScore += 1;
-    } else if (humanChoice === "paper" && computerChoice === "rock") {
-        console.log("You win. Paper beats Rock.");
-        humanScore += 1;
-    } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        console.log("You lose. Scissors beats Paper.");
-        computerScore += 1;
-    } else if (humanChoice === "scissors" && computerChoice === "rock") {
-        console.log('You lose. Rock beats Scissors.');
-        computerScore += 1;
-    } else if (humanChoice === "scissors" && computerChoice === "paper") {
-        console.log("You win. Scissors beats Paper.");
-        humanScore += 1;
-    } else {
-        console.log("It's a tie. try again!");
-    }
-};
+    const winsAgainst = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+    };
 
-function playGame() {
-    if (humanScore > computerScore) {
-        console.log(`You won the game. ${humanScore}:${computerScore}`)
-    } else if (computerScore > humanScore) {
-        console.log(`You lost the game. ${computerScore}:${humanScore}`)
+    if (winsAgainst[humanChoice] === computerChoice) {
+        humanScore++;
     } else {
-        console.log(`The game ended in a draw. ${humanScore}:${computerScore}`)
+        computerScore++;
     }
-};
+}
+
+function updateScores() {
+    humanScoreSpan.innerText = humanScore;
+    computerScoreSpan.innerText = computerScore;
+}
+
+function checkWinner() {
+    if (humanScore === 5 || computerScore === 5) {
+        endMessage.style.display = 'block';
+        restartButton.style.display = 'block';
+
+        if (humanScore === 5) {
+            endMessage.textContent = "You won the game!";
+        } else {
+            endMessage.textContent = "Computer wins!";
+        }
+
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        scissorsBtn.disabled = true;
+    }
+}
+
+function handleClick(choice) {
+    playRound(choice, getComputerChoice());
+    updateScores();
+    checkWinner();
+}
+
+rockBtn.addEventListener("click", () => handleClick("rock"));
+paperBtn.addEventListener("click", () => handleClick("paper"));
+scissorsBtn.addEventListener("click", () => handleClick("scissors"));
+
+restartButton.addEventListener("click", () => {
+    humanScore = 0;
+    computerScore = 0;
+    updateScores();
+
+    endMessage.style.display = 'none';
+    restartButton.style.display = 'none';
+
+    rockBtn.disabled = false;
+    paperBtn.disabled = false;
+    scissorsBtn.disabled = false;
+});
